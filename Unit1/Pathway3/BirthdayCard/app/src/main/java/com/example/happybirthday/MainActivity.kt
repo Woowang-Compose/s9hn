@@ -16,20 +16,23 @@
 package com.example.happybirthday
 
 import android.os.Bundle
-import android.text.Layout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,7 +41,14 @@ import com.example.happybirthday.ui.theme.HappyBirthdayTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { }
+        setContent {
+            HappyBirthdayTheme {
+                // A surface container using the 'background' color from the theme
+                Surface() {
+                    GreetingImage("안녕", "ㅎㅇㅎㅇㅎ")
+                }
+            }
+        }
     }
 }
 
@@ -51,10 +61,62 @@ fun BirthdayGreetingWithText(message: String, from: String) {
 
 // 5. Box 레이아웃 추
 @Composable
-fun BirthdayGreetingWithImage(message: String, from: String) { }
+fun BirthdayGreetingWithImage(message: String, from: String) {
+}
+
+@Composable
+fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.padding(40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = message,
+            fontSize = 20.sp,
+            lineHeight = 150.sp,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .align(alignment = Alignment.Start)
+                .background(color = Color.Green)
+                .padding(16.dp),
+
+        )
+        Text(
+            text = from,
+            fontSize = 20.sp,
+            lineHeight = 150.sp,
+            modifier = Modifier
+                .align(alignment = Alignment.Start), // layout_gravity
+        )
+    }
+}
+
+@Composable
+fun GreetingImage(message: String, from: String) {
+    val image = painterResource(R.drawable.ic_launcher_background)
+    Box {
+        Image(
+            painter = image,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+        )
+
+        GreetingText(
+            message = message,
+            from = from,
+            modifier = Modifier.fillMaxSize().padding(8.dp),
+        )
+    }
+}
 
 // 4. 이미지 컴포저블 추가
-@Preview(showBackground = false)
+@Preview(showBackground = false, showSystemUi = true)
 @Composable
-private fun BirthdayCardPreview() { }
-
+private fun BirthdayCardPreview() {
+    HappyBirthdayTheme {
+        // A surface container using the 'background' color from the theme
+        Surface {
+            GreetingImage("안녕", "ㅎㅇㅎㅇㅎ")
+        }
+    }
+}
