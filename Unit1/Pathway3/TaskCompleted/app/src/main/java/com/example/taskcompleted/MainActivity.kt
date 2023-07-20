@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,8 +28,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TaskCompletedScreen() {
-    val header = "All tasks completed"
-    val content = "Nice work!"
+    val header = stringResource(id = R.string.all_task_completed)
+    val content = stringResource(id = R.string.nice_work)
     val image = painterResource(id = R.drawable.ic_task_completed)
 
     Column(
